@@ -11,8 +11,8 @@ import javax.swing.JPanel;
 
 public class DrawPanel extends JPanel{
 
-    /**
-     * 
+    /*
+     * Panel z graficznym przedstawieniem sieci 
      */
 
     int array[][];

@@ -9,8 +9,8 @@ import javax.swing.JPanel;
 
 public class BottomPanel extends JPanel { 
 
-	/** Antonina Pater
-	 * Dolny panel programu.
+	/*
+	 * Dolny panel z ustawieniami oraz wykresem
 	 */
 	private static final long serialVersionUID = 1L;
 	

@@ -4,8 +4,9 @@ import java.awt.Rectangle;
 
 public class Wierzcholek extends Rectangle{
 
-    /**
-     * 
+    /*
+     * Klasa z wierzvhołkami, w sumie ni jest bardzo potrzebna. Starczyłby sam Rectangle ale jakoś tak mi sie napisało.
+     
      */
     private static final long serialVersionUID = 1L;
     int x;

@@ -18,6 +18,10 @@ import org.jfree.data.xy.XYSeriesCollection;
 
 public class GraphPanel extends JPanel {
 
+    /*
+     * Wykres histogramu zliczeń 
+     */
+
     private static final long serialVersionUID = 1L;
 
     int maxN;
@@ -55,13 +59,13 @@ public class GraphPanel extends JPanel {
 
 
 
-    public void calcTeor(int N, double p, int total){
+    public void calcTeor(int N, double p, int total){	///TODO wykresik troche sie chyba nie zgadza
 
 	if(p != 0) {
 	    PoissonDistribution poisson =  new PoissonDistribution(p*N) ;
 
 	    for(int k=0; k<teor.length; k++){
-		teor[k] = poisson.probability(k)*N;
+		teor[k] = poisson.probability(k)*total;
 	    }
 	} else {
 	    for(int k=0; k<teor.length; k++){
@@ -71,17 +75,6 @@ public class GraphPanel extends JPanel {
 
     }
 
-
-
-    public static long factorial(int number) {
-	long result = 1;
-
-	for (int factor = 2; factor <= number; factor++) {
-	    result *= factor;
-	}
-
-	return result;
-    }
 
 
 
@@ -112,7 +105,7 @@ public class GraphPanel extends JPanel {
 	chart = ChartFactory.createXYLineChart(
 		null, // Title
 		"k", // x-axis Label
-		"Średni stopień węzła", // y-axis Label
+		"Stopień węzła sieci", // y-axis Label
 		dataset, // Dataset
 		PlotOrientation.VERTICAL, 
 		false, // Show Legend

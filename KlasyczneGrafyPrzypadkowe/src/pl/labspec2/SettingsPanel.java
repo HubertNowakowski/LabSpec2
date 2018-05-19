@@ -12,8 +12,8 @@ import javax.swing.JSlider;
 
 public class SettingsPanel extends JPanel{
     
-    /**
-     * 
+    /*
+     * Panel z ustawieniami parametrów prawdopodobieństwa połączenia p i liczby węzłów N
      */
     private static final long serialVersionUID = 1L;
     JSlider pSlider;
@@ -39,7 +39,6 @@ public class SettingsPanel extends JPanel{
 	c.gridy = 0;
 	c.gridwidth = 3;
 	c.insets = new Insets(0,0,2,0);
-	//this.settingsLabel.setFont(this.header);
 	this.add(this.settingsLabel,c);
 
 

@@ -10,8 +10,8 @@ import javax.swing.JFrame;
 
 public class MainFrame extends JFrame {
 
-    /**
-     * 
+    /*
+     * Główna klasa 
      */
     private static final long serialVersionUID = 1L;
     DrawPanel drawPanel;
@@ -60,7 +60,7 @@ public class MainFrame extends JFrame {
 	int stopnie[] = new int[N];
 	int hist[] = new int[N];
 	int total=0;
-	
+
 	for (int ii = 0; ii< N; ii++) {
 	    stopnie[ii]=0;
 	    for (int jj = 0; jj< N; jj++) {
@@ -77,15 +77,8 @@ public class MainFrame extends JFrame {
 	    MainFrame.this.bottomPanel.graph.updateChart(MainFrame.this.bottomPanel.graph.data, N);
 	}
 	
-	
 	MainFrame.this.bottomPanel.graph.calcTeor(N, p, total);
-	
 	MainFrame.this.bottomPanel.graph.repaint();
-
-
-
-
-
     }
 
 
