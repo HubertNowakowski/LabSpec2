@@ -1,0 +1,101 @@
+package pl.labspec2;
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSlider;
+
+public class SettingsPanel extends JPanel{
+    
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+    JSlider pSlider;
+    JLabel  pSliderLabel;
+    JLabel  pLabel;
+    
+    JSlider nSlider;
+    JLabel  nSliderLabel;
+    JLabel  nLabel;
+    
+    JLabel settingsLabel;
+    
+    public SettingsPanel(int N, double p) {
+
+	setLayout(new GridBagLayout());
+	GridBagConstraints c = new GridBagConstraints();
+
+	setPreferredSize(new Dimension(250,120));
+	setBackground(Color.WHITE);
+	
+	this.settingsLabel = new JLabel("USTAWIENIA SYMULACJI");
+	c.gridx = 0;
+	c.gridy = 0;
+	c.gridwidth = 3;
+	c.insets = new Insets(0,0,2,0);
+	//this.settingsLabel.setFont(this.header);
+	this.add(this.settingsLabel,c);
+
+
+	this.pSliderLabel = new JLabel("Parametr p : ");
+	c.gridx = 0;
+	c.gridy = 1;
+	c.anchor=GridBagConstraints.LINE_START;
+	this.add(this.pSliderLabel,c);
+
+	this.pLabel = new JLabel(Double.toString(p));
+	c.gridx = 1;
+	c.anchor=GridBagConstraints.LINE_END;
+	this.add(this.pLabel,c);
+
+	this.pSlider = new JSlider(0,100, (int)(p*100) );
+	c.gridx = 0;
+	c.gridy = 2;
+	c.gridwidth = 3;
+	c.insets = new Insets(0,0,7,0);
+	c.fill= GridBagConstraints.HORIZONTAL;
+	c.anchor=GridBagConstraints.LINE_END;
+
+	this.pSlider.setBackground(Color.WHITE);
+
+	this.pSlider.setMajorTickSpacing(1);
+	this.pSlider.setSnapToTicks(true);
+	this.add(this.pSlider,c);
+	
+	
+	
+	this.nSliderLabel = new JLabel("Liczba wierzchołków: ");
+	c.gridx = 0;
+	c.gridy = 3;
+	c.gridwidth = 1;
+	c.anchor=GridBagConstraints.LINE_START;
+	this.add(this.nSliderLabel,c);
+
+	this.nLabel = new JLabel(Integer.toString(N));
+	c.gridx = 3;
+	c.anchor=GridBagConstraints.LINE_END;
+	this.add(this.nLabel,c);
+
+	this.nSlider = new JSlider(5,65,N);
+	c.gridx = 0;
+	c.gridy = 4;
+	c.gridwidth = 3;
+	c.insets = new Insets(0,0,7,0);
+	c.fill= GridBagConstraints.HORIZONTAL;
+	c.anchor=GridBagConstraints.LINE_END;
+
+	this.nSlider.setBackground(Color.WHITE);
+
+	this.nSlider.setMajorTickSpacing(5);
+	this.nSlider.setSnapToTicks(true);
+	this.add(this.nSlider,c);
+
+}
+
+}
