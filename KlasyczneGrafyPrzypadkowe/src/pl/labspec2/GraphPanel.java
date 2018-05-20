@@ -2,19 +2,26 @@ package pl.labspec2;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
 
 import javax.swing.JPanel;
 
+import org.apache.commons.math3.distribution.BinomialDistribution;
 import org.apache.commons.math3.distribution.PoissonDistribution;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.annotations.XYTitleAnnotation;
 import org.jfree.chart.axis.ValueAxis;
+import org.jfree.chart.block.BlockBorder;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.chart.title.LegendTitle;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
+import org.jfree.ui.RectangleAnchor;
+import org.jfree.ui.RectangleEdge;
 
 public class GraphPanel extends JPanel {
 
@@ -27,9 +34,11 @@ public class GraphPanel extends JPanel {
     int maxN;
     int[] data;
     double[] teor;
+    double[] teor2;
 
     XYSeries series;
     XYSeries seriesT;
+    XYSeries seriesT2;
     XYSeriesCollection dataset;
     JFreeChart chart;
     public GraphPanel(int N) {
@@ -40,6 +49,8 @@ public class GraphPanel extends JPanel {
 	maxN=65;
 	data = new int[maxN];
 	teor = new double[maxN];
+
+	teor2 = new double[maxN];
 
 	clearData();
 	ChartPanel cp = new ChartPanel(chart);
@@ -63,13 +74,16 @@ public class GraphPanel extends JPanel {
 
 	if(p != 0) {
 	    PoissonDistribution poisson =  new PoissonDistribution(p*N) ;
+	    BinomialDistribution binomial = new BinomialDistribution(N, p);
 
 	    for(int k=0; k<teor.length; k++){
-		teor[k] = poisson.probability(k)*total;
+		teor[k] = poisson.probability(k)*N;
+		teor2[k]=binomial.probability(k)*N;
 	    }
 	} else {
 	    for(int k=0; k<teor.length; k++){
 		teor[k] = 0;
+		teor2[k]= 0;
 	    }
 	}
 
@@ -83,23 +97,30 @@ public class GraphPanel extends JPanel {
 	this.removeAll();
 	this.revalidate();
 
-	series = new XYSeries("XYGraph");
+	series = new XYSeries("dane");
 	for(int ii=0; ii<data.length;ii++){
 	    if(data[ii] >=0 ){
 		series.add(ii , data[ii] );
 	    }
 	}
 
-	seriesT = new XYSeries("XYGraphT");
+	seriesT = new XYSeries("Poisson");
 	for(int ii=0; ii<teor.length;ii++){
 	    if(teor[ii] >=0 ){
 		seriesT.add(ii , teor[ii] );
+	    }
+	}
+	seriesT2 = new XYSeries("Binomial");
+	for(int ii=0; ii<teor.length;ii++){
+	    if(teor2[ii] >=0 ){
+		seriesT2.add(ii , teor2[ii] );
 	    }
 	}
 
 	dataset = new XYSeriesCollection();
 	dataset.addSeries(series);
 	dataset.addSeries(seriesT);
+	dataset.addSeries(seriesT2);
 
 
 	chart = ChartFactory.createXYLineChart(
@@ -121,13 +142,23 @@ public class GraphPanel extends JPanel {
 	renderer.setSeriesLinesVisible(0, false);
 	renderer.setSeriesPaint( 1 , Color.GREEN );
 	renderer.setSeriesShapesVisible(1, false);
+	renderer.setSeriesPaint( 2 , Color.BLUE );
+	renderer.setSeriesShapesVisible(2, false);
 
-	ValueAxis yAxis = plot.getRangeAxis();
-	yAxis.setRange(0, 30);
 	ValueAxis xAxis = plot.getDomainAxis();
 	xAxis.setRange(0, N);
 
 	plot.setRenderer( renderer ); 
+	
+	LegendTitle lt = new LegendTitle(plot);
+	lt.setItemFont(new Font("Dialog", Font.PLAIN, 9));
+	lt.setBackgroundPaint(Color.white);
+	lt.setFrame(new BlockBorder(Color.white));
+	lt.setPosition(RectangleEdge.TOP);
+	XYTitleAnnotation ta = new XYTitleAnnotation(0.98, 0.98, lt,RectangleAnchor.TOP_RIGHT);
+
+	ta.setMaxWidth(0.48);
+	plot.addAnnotation(ta);
 
 	ChartPanel cp = new ChartPanel(chart);
 	cp.setBackground(Color.WHITE);
