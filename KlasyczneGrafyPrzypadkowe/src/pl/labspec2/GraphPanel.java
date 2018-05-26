@@ -41,12 +41,31 @@ public class GraphPanel extends JPanel {
     XYSeries seriesT2;
     XYSeriesCollection dataset;
     JFreeChart chart;
+    public GraphPanel() {
+
+    	setLayout(new BorderLayout());
+    	setBackground(Color.WHITE);
+
+    	maxN=500;
+    	data = new int[maxN];
+    	teor = new double[maxN];
+
+    	teor2 = new double[maxN];
+
+    	clearData();
+    	ChartPanel cp = new ChartPanel(chart);
+    	add(cp, BorderLayout.CENTER);
+
+        }
+    
+    
+    
     public GraphPanel(int N) {
 
 	setLayout(new BorderLayout());
 	setBackground(Color.WHITE);
 
-	maxN=65;
+	maxN=500;
 	data = new int[maxN];
 	teor = new double[maxN];
 
